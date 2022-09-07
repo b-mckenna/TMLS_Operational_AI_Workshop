@@ -1,0 +1,25 @@
+type: Model
+name: product_classification_example
+index: id
+target: label
+columns:
+  - type: TEXT
+    name: text
+  - type: CATEGORICAL
+    name: label
+train:
+  metric: f1_macro
+  exclude_ensemble: True
+  disable_automl_feature_generation: True
+  disable_feature_importance: True
+  disable_data_profiling: True
+  disable_feature_timestamp_generation: True
+  size: xxlarge
+  included_model_types:
+    - distilbert
+predict:
+  schedule: 0 4 * * 0
+  incremental: True
+promote:
+  policy: best
+table: tmls.cfpb.micro_consumer_complaints

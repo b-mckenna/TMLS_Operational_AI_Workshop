@@ -1,0 +1,5 @@
+class_name: DistilBert
+extension_id: distilbert
+extension_type: algorithm
+module_name: distilbert.algorithm
+type: extension
