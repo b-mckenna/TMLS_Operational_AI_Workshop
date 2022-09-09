@@ -1,3 +1,4 @@
+from json import load
 import pandas as pd
 import dill
 import os
@@ -94,6 +95,23 @@ class DistilBert(BaseCustomAlgorithm):
             return tokenizer(examples["text"], truncation=True)
 
         return dataset.map(preprocess_function, batched=True), tokenizer
+    
+    def _load_pretrained_model(self):
+        from continual.python.sdk.logger.logger import logger as metadata_logger
+        from transformers import TFDistilBertForSequenceClassification
+        import os
+
+        model_version = 'projects/topic_classification@dev/models/topic_classification1/versions/ccb541m1sfrv4oo6sea0'
+        artifact, model_path = metadata_logger.get_model_artifact(model_version=model_version, download=True, download_dir="/home/tylerkohn/continual/brendan_test")
+
+        print(f"model_path: {model_path}")
+
+        full_model_path = os.path.join(model_path, "artifacts/tmphfbebns2/AutogluonModels/ag-20220905_194744/models/Bert/custom_trainer_dir/transformer_model")
+        print(f"full_model_path: {full_model_path}")
+        loaded_model = TFDistilBertForSequenceClassification.from_pretrained(full_model_path)
+        print("Model successfully downloaded")
+        return loaded_model
+        
 
     def _run_lime(self, X):
         #Run LIME analysis
@@ -121,14 +139,12 @@ class DistilBert(BaseCustomAlgorithm):
         class_names = np.array(['Credit reporting', 'Debt collection', 'Student loan', 'Mortgage','Credit card', 'Checking or', 'Money transfer,', 'Vehicle loan', 'Payday loan'])
         explainer = LimeTextExplainer(class_names=class_names)
         self.logger.info("Running explain_instance")
-        exp = explainer.explain_instance(input_sentence, predictor, num_features=6, num_samples=15, top_labels=2)
+        exp = explainer.explain_instance(input_sentence, predictor, num_features=6, num_samples=1000, top_labels=2)
         self.logger.info("Creating pyplot")
         fig = exp.as_pyplot_figure(label=exp.available_labels()[0])
-        #fig.text(0.0, -0.05, "'" + input_sentence[0:75] +"...'", fontsize=20, color='green')
-        fig.suptitle("'" +input_sentence[0:75]+"...'", fontsize=10, y=1.05)
-        filename = "lime_for_sentence_" + input_sentence[0:] if len(input_sentence) < 5 else input_sentence[0:5] + ".png"
+        fig.suptitle("'" +input_sentence[0:75]+"...'", fontsize=10, y=0.95)
+        filename = "lime_sentence_sample.png"
         fig.savefig(filename)
-        #exp.save_to_file('lime.html')
         metadata_logger.log_artifact(filename,type="plot")
         self.logger.info("LIME artifact has been logged")
 
@@ -177,12 +193,13 @@ class DistilBert(BaseCustomAlgorithm):
             optimizer, schedule = create_optimizer(init_lr=2e-5, num_warmup_steps=0, num_train_steps=total_train_steps)
 
             self.logger.info("Loading model from_pretrained")
-            model = TFDistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=y.nunique())
-
+            #model = TFDistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=y.nunique())
+            model = self._load_pretrained_model()
             self.logger.info("Compiling model")
             model.compile(optimizer=optimizer)
 
             self.logger.info("Fitting model")
+            
             model.fit(x=tf_train_set, validation_data=tf_validation_set, epochs=1)
             self.model = model
             self.logger.info("Model has been fit")
@@ -256,9 +273,8 @@ class DistilBert(BaseCustomAlgorithm):
             The directory where the serialized files for this
             model are stored
         """
-
-        from transformers import TFDistilBertForSequenceClassification
-        self.model = TFDistilBertForSequenceClassification.from_pretrained(os.path.join(load_dir, "transformer_model"))
+        self.model = self._load_pretrained_model()
+        
 
     def default_parameters(self):
         """

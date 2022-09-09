@@ -14,12 +14,15 @@ train:
   disable_feature_importance: True
   disable_data_profiling: True
   disable_feature_timestamp_generation: True
-  size: xxlarge
+  size: large
   included_model_types:
     - distilbert
+    - RandomForest
+    - Linear
+    - GBM
 predict:
   schedule: 0 4 * * 0
   incremental: True
 promote:
   policy: best
-table: tmls.cfpb.micro_consumer_complaints
+table: tmls.cfpb.sample_consumer_complaints
