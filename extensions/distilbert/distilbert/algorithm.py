@@ -101,12 +101,12 @@ class DistilBert(BaseCustomAlgorithm):
         from transformers import TFDistilBertForSequenceClassification
         import os
 
-        model_version = 'projects/topic_classification@dev/models/topic_classification1/versions/ccb541m1sfrv4oo6sea0'
+        model_version = 'projects/topic_classification1/models/product_classification_example/versions/ccd6al4doqdt0tst8arg'
         artifact, model_path = metadata_logger.get_model_artifact(model_version=model_version, download=True, download_dir="/home/tylerkohn/continual/brendan_test")
 
         print(f"model_path: {model_path}")
 
-        full_model_path = os.path.join(model_path, "artifacts/tmphfbebns2/AutogluonModels/ag-20220905_194744/models/Bert/custom_trainer_dir/transformer_model")
+        full_model_path = os.path.join(model_path, "artifacts/tmpd1mpjpzl/AutogluonModels/ag-20220908_215906/models/distilbert/custom_trainer_dir/transformer_model")
         print(f"full_model_path: {full_model_path}")
         loaded_model = TFDistilBertForSequenceClassification.from_pretrained(full_model_path)
         print("Model successfully downloaded")
