@@ -8,10 +8,11 @@ columns:
   - type: CATEGORICAL
     name: label
 train:
-  metric: f1_macro
+  metric: accuracy
   exclude_ensemble: True
   disable_automl_feature_generation: True
   disable_feature_timestamp_generation: True
+  disable_feature_importance: True
   size: xxlarge
   included_model_types:
     - distilbert
@@ -19,7 +20,7 @@ train:
     - Linear
     - GBM
 predict:
-  schedule: 0 4 * * 2
+  schedule: 0 4 * 1 *
   incremental: True
 promote:
   policy: best
