@@ -1,5 +1,5 @@
 type: Model
-name: product_classification_andrew_tsao
+name: product_classification_example
 index: id
 target: label
 columns:
@@ -17,8 +17,8 @@ train:
   size: xxlarge
   included_model_types:
     - distilbert
-    - RandomForest
-    - NN_TORCH
+    - Catboost
+    - XGBoost
     - GBM
 predict:
   schedule: 0 2 1 * *
