@@ -80,7 +80,7 @@ continual push extensions/distilbert/extension.yaml
 
 If you are following along with the workshop and using the pre-existing **Topic_Classification** project, feel free to skip this step. 
 
-# Edit your model definition
+# Editing your model definition
 In your favorite text editor, open and edit the `/models/product_classification.yaml` file. Change the `name` field from *product_classification_example* to *product_classification_<firstname>_<lastname>*.
 
 Once you've edited and saved [product_classification.yaml](https://github.com/b-mckenna/TMLS_Operational_AI_Workshop/blob/main/models/product_classification.yaml), you can then submit it to Continual through the CLI by using the push command:
