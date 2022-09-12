@@ -9,6 +9,7 @@ columns:
     name: label
 train:
   metric: accuracy
+  schedule: 0 0 1 * *
   exclude_ensemble: True
   disable_automl_feature_generation: True
   disable_feature_timestamp_generation: True
@@ -17,11 +18,11 @@ train:
   included_model_types:
     - distilbert
     - RandomForest
-    - Linear
+    - NeuralNet
     - GBM
 predict:
-  schedule: 0 4 * 1 *
+  schedule: 0 2 1 * *
   incremental: True
 promote:
   policy: best
-table: tmls.cfpb.micro_consumer_complaints
+table: tmls.cfpb.sample_consumer_complaints

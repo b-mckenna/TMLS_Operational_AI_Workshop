@@ -193,7 +193,6 @@ class DistilBert(BaseCustomAlgorithm):
             optimizer, schedule = create_optimizer(init_lr=2e-5, num_warmup_steps=0, num_train_steps=total_train_steps)
 
             self.logger.info("Loading model from_pretrained")
-            #model = TFDistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=y.nunique())
             model = self._load_pretrained_model()
             self.logger.info("Compiling model")
             model.compile(optimizer=optimizer)
