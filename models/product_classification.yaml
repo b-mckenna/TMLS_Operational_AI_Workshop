@@ -1,5 +1,5 @@
 type: Model
-name: product_classification_example
+name: product_classification_andrew_tsao
 index: id
 target: label
 columns:
@@ -25,4 +25,4 @@ predict:
   incremental: True
 promote:
   policy: best
-table: tmls.cfpb.sample_consumer_complaints
+table: tmls.cfpb.micro_consumer_complaints

@@ -11,7 +11,7 @@ readme = "README.md"
 include = [ "*.yaml",]
 
 [tool.poetry.dependencies]
-python = "^3.8.13"
+python = "^3.8"
 keras = "2.9.0"
 transformers = "4.21.1"
 tokenizers = "0.12.1"
