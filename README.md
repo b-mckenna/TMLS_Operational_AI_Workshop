@@ -2,8 +2,7 @@
 A repo with assets required for the TMLS operational AI virtual workshop
 
 # Login to Continual using the emailed invite link 
-If you didn’t receive an invite link, please raise a hand and let Brendan McKenna know. 
-
+For those who pre-registered, you should have an invite in your inbox. Click on the link and signup for a free trial. If you didn't receive an invite, please skip to the next step (Create your own project). 
 
 After logging in, you should see a project named **Topic_ClassificationX** connected to a demo Snowflake database and a classification model already created. The demo Snowflake database includes a dataset of consumer complaints filed with the Bureau of Consumer Financial Protection.
 
@@ -39,7 +38,7 @@ To add a custom algorithm, users can run continual extensions init –type algor
 In your favorite editor, open and edit /models/product_classification.yaml. 
 Change the name field from product_classification_example to product_classification_firstname_lastname
 
-*NOTE: If you created your own project, you need to run `continual push extensions/extension.yaml` before you push the model yaml in the next step.* 
+*NOTE: If you created your own project, you need to run `continual push extensions/extension.yaml` before you push the model yaml in the next step. Reach out to brendan@continual.ai or jordan@continual.ai to activate the extensions feature* 
 
 Once you’ve edited and saved product_classification.yaml, submit it to Continual from the CLI using the push command. 
 
@@ -54,7 +53,7 @@ The link will take you to the Changes page. Continual Changes are a complete rec
 
 To accomodate the time constraint of this abbreviated workshop, we used a 100 row sample of the dataset and only 4 algorithms. Consequently, performance will be subpar but that's okay. The purpose of the workshop is to exemplify the workflow. Improving model performance won't be covered here. 
 
-If you'd like to train on a slightly larger dataset, edit your model yaml to table `tmls.cfpb.sample_consumer_complaints`. It will take roughly 1h45m to complete training for each algorithm. 
+If you'd like to train on a slightly larger dataset, edit your model yaml to table `tmls.cfpb.sample_consumer_complaints`. It will take roughly 1h45m to complete full model training, promotion, analysis, and deployment. 
 
 *NOTE: We did not enable GPUs for this workshop. All training is being done on CPUs.* 
 
