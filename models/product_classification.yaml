@@ -25,4 +25,4 @@ predict:
   incremental: True
 promote:
   policy: best
-table: tmls.cfpb.micro_consumer_complaints
+table: tmls.cfpb.sample_consumer_complaints
