@@ -18,7 +18,7 @@ train:
   included_model_types:
     - distilbert
     - RandomForest
-    - NeuralNet
+    - NN_TORCH
     - GBM
 predict:
   schedule: 0 2 1 * *
